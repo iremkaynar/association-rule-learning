@@ -28,3 +28,12 @@ df.head()
 df.describe().T
 df.info()
 df.isnull().sum()
+
+def retail_data_prep(dataframe):
+    dataframe.dropna(inplace=True)
+    dataframe = dataframe[~dataframe["Invoice"].str.contains("C", na=False)]
+    dataframe = dataframe[dataframe["Quantity"] > 0]
+    dataframe = dataframe[dataframe["Price"] > 0]
+    return dataframe
+
+df = retail_data_prep(df)
